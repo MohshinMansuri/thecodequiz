@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #212529;
+            color: #e9ecef;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-form {
+            text-align: left;
+            max-width: 300px;
+            width: 100%;
+        }
+
+        .scrolling-text {
+            font-size: 24px;
+            white-space: nowrap;
+            overflow: hidden;
+            box-sizing: border-box;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .scrolling-text h2 {
+            display: inline-block;
+            animation: scroll-text 10s linear infinite;
+        }
+
+        @keyframes scroll-text {
+            0% {
+                transform: translateX(40%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .note {
+            margin-top: 10px;
+            font-size: 14px;
+            text-align: center;
+            color: red;
+            animation: colorChange 0.3s infinite;
+        }
+
+        @keyframes colorChange {
+            0% {
+                color: red;
+            }
+
+            100% {
+                color: rgb(255, 119, 119);
+            }
+        }
+
+        .footer-text {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 5px 0;
+            background-color: #212529;
+            color: #e9ecef;
+            font-size: 16px;
+        }
+
+        .result-table-container {
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .result-table {
+            width: 100%;
+            color: white;
+            border-collapse: collapse;
+            table-layout: fixed; /* Ensures the table cells have equal width */
+        }
+        
+        .result-table th, .result-table td {
+            border: 1px solid #e9ecef;
+            padding: 8px;
+            text-align: center;
+        }
+        
+        .result-table th {
+            background-color: #343a40;
+        }
+
+    </style>
+    <link rel="website icon" type="png" href="{{url_for('static', filename='logo.png')}}">
+</head>
+
+<body>
+    <div class="login-form" style="margin-top: 150px;">
+        <h1 class="text-center">Check Result</h1>
+        <form action="/check-result" method="post">
+            <div class="form-group mb-3">
+                <label for="enrollment_no">Enrollment Number</label>
+                <input type="text" class="form-control my-2" id="enrollment_no" name="enrollment_no" required
+                    style="width: 100%;">
+            </div>
+            <button type="submit" class="btn btn-success w-100">Search</button>
+        </form>
+    </div>
+
+    <!-- Full-width result table -->
+    {% if details %}
+    <div class="result-table-container">
+        <h1 class="text-center">Result</h1>
+        <table class="result-table table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Enrollment Number</th>
+                    <td>{{ details.enrollment_number }}</td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td>{{ details.name }}</td>
+                </tr>
+                <tr>
+                    <th>Marks Obtained</th>
+                    <td>{{ details.score }}</td>
+                </tr>
+                <tr>
+                    <th>Total Marks</th>
+                    <td>40</td>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    {% endif %}
+
+    <div class="footer-text">
+        Created by Moh Technology
+    </div>
+</body>
+
+</html>
